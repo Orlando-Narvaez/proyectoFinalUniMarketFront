@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import { ProductoGetDto } from 'src/app/modelo/producto-get-dto';
+import { ProductoGetDTO} from 'src/app/modelo/producto-get-dto';
 import { ProductoService } from 'src/app/servicios/producto.service';
 
 @Component({
@@ -10,29 +10,28 @@ styleUrls: ['./busqueda.component.css']
 
 })
 
-export class BusquedaComponent{
-
-textoBusqueda:string;
-productos:ProductoGetDto;
-filtro:ProductoGetDto;
-
-
-constructor(private route:ActivatedRoute)
+export class BusquedaComponent
 {
 
-this.textoBusqueda = "";
-this.productos = this.productoServicio.listar();
-this.filtro = [];
-this.route.params.subscribe(params => {
-    this.textoBusqueda = params["texto"];
-    this.filtro = this.productos.filter( p =>
-    p.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase()) );
-    });
+    textoBusqueda:string;
+    productos: ProductoGetDTO[];
+    filtro: ProductoGetDTO[];
 
-}
-constructor(private route:ActivatedRoute, private productoServicio:ProductoService)
-{
 
-}
+    constructor(private route:ActivatedRoute, private productoServicio:ProductoService)
+    {
 
+    this.textoBusqueda = "";
+
+    this.productos = this.productoServicio.listar();
+    this.filtro = [];
+
+    this.route.params.subscribe(params => 
+        {
+            this.textoBusqueda = params["texto"];
+            this.filtro = this.productos.filter( p =>
+            p.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase()) );
+        });
+
+    }
 }
