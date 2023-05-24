@@ -9,9 +9,10 @@
 
     .img-vertical{
         overflow: hidden;
-        }
-        .img-vertical img{
+    }
+    
+    .img-vertical img{
         width: auto;
         height: 100%;
-        }
+    }
 }
