@@ -12,7 +12,7 @@ const routes: Routes = [
 { path: "registro", component: RegistroComponent },
 { path: "crear", component: CrearProductoComponent},
 { path: "**", pathMatch: "full", redirectTo: "" },
-{ path: "busqueda/:texto", component: BusquedaComponent }
+{ path: "busqueda/:texto", component: BusquedaComponent },
 { path: "Carrito", component: CarritoComponent },
 ];
 
