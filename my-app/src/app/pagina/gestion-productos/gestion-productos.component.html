@@ -1,10 +1,7 @@
 <div class="card p-4">
   <div class="mb-3">
-    <button type="button" class="btn btn-success me-2">
+    <button type="button" class="btn btn-success me-2" (click)="goToCreate()">
       <i class="fa-solid fa-plus me-1"></i> Crear
-    </button>
-    <button type="button" class="btn btn-danger">
-      <i class="fa-solid fa-trash me-1"></i> Eliminar
     </button>
   </div>
 
@@ -15,7 +12,6 @@
         <th>Nombre</th>
         <th>Descripcion</th>
         <th>Precio</th>
-        <th>Unidades</th>
         <th>Imágenes</th>
         <th>Categorías</th>
       </tr>
@@ -24,76 +20,31 @@
     <tbody class="table-group-divider">
       <tr *ngFor="let item of productos">
         <td>
-          <input
-            #check
-            class="form-check-input"
-            type="checkbox"
-            (change)="seleccionar(item, check.checked)"
-          />
+          <p>{{ item.idProduct }}</p>
         </td>
         <td>
-          <p>{{ item.codigo }}</p>
+          <p>{{ item.name }}</p>
         </td>
         <td>
-          <p>{{ item.nombre }}</p>
+          <p>{{ item.description }}</p>
         </td>
         <td>
-          <p>{{ item.descripcion }}</p>
+          <p>{{ item.price | currency }}</p>
+        </td>
+        <td><img [src]="item.images[0]?.value" width="120" /></td>
+        <td>
+          <p>{{ item.categories[0] }}</p>
         </td>
         <td>
-          <p>{{ item.precio }}</p>
-        </td>
-        <td>
-          <p>{{ item.unidades }}</p>
-        </td>
-        <td><img [src]="item.imagenes[0]" width="120" /></td>
-        <td>
-          <p>{{ item.categoria }}</p>
-        </td>
-        <td>
-          <button type="button" class="btn btn-warning rounded-circle me-2">
+          <button type="button" class="btn btn-warning rounded-circle me-2" (click)="editProduct(item)">
             <i class="fa-solid fa-pen"></i>
+          </button>
+          <button type="button" class="btn btn-danger rounded-circle me-2" (click)="deleteProduct(item)">
+            <i class="fa-solid fa-trash"></i>
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-</div>
-
-<div
-  class="modal fade"
-  id="borrar"
-  tabindex="-1"
-  aria-labelledby="borrarModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="borrarModalLabel">
-          Eliminar producto
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p>¿Está seguro que desea borrar los elementos seleccionados?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          No
-        </button>
-        <button
-          type="button"
-          class="btn btn-danger"
-          data-bs-dismiss="modal"
-          (click)="borrarProductos()">
-          Sí
-        </button>
-      </div>
-    </div>
-  </div>
+  <app-alert [alert]="alert"></app-alert>
 </div>

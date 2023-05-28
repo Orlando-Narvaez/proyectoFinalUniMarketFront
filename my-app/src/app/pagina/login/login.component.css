@@ -1,0 +1,14 @@
+.container-login {
+    width: 50%;
+    margin: auto;
+}
+
+h3 {
+    text-align: center;
+}
+
+.container-btn {
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+}

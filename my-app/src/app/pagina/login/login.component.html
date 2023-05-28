@@ -1,5 +1,43 @@
 <div class="container">
-    <form action="">
-        
-    </form>
+    <div class="container-login">
+        <h3>Login</h3>
+        <form [formGroup]="frmSesion" novalidate class="needs-validation">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm col-xs-12">
+                    <label class="form-label">Email</label>
+                    <input class="form-control"
+                           type="text"
+                           formControlName="email"
+                           [ngClass]="{'is-invalid': email?.touched && email?.errors }">
+                    <div *ngIf="email?.touched && email?.errors" class="invalid-feedback">
+                        <div *ngIf="email?.hasError('required')">
+                          Email es requerido
+                        </div>
+                        <div *ngIf="email?.hasError('email')">
+                          Debe ingresar un correo válido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="form-label">Contraseña</label>
+                    <input class="form-control"
+                           type="password"
+                           formControlName="contrasena"
+                           [ngClass]="{'is-invalid': contrasena?.touched && contrasena?.errors }">
+                    <div *ngIf="contrasena?.touched && contrasena?.errors" class="invalid-feedback">
+                        <div *ngIf="contrasena?.hasError('required')">
+                          Email es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container-btn">
+                    <button class="btn btn-warning" (click)="login()">Iniciar sesion</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

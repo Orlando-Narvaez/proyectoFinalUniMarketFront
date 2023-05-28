@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Alert } from 'src/app/modelo/Alert';
 import { ProductoDTO } from 'src/app/modelo/producto-dto';
 import { ProductoGetDTO } from 'src/app/modelo/producto-get-dto';
 import { ProductoService } from 'src/app/servicios/producto.service';
+import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-gestion-productos',
@@ -12,15 +15,31 @@ export class GestionProductosComponent implements OnInit {
   productos: ProductoGetDTO[];
   seleccionados: ProductoGetDTO[];
   textoBtnEliminar: string;
+  alert!: Alert;
 
-  constructor(private productoServicio: ProductoService) {
+  constructor(
+    private productoServicio: ProductoService,
+    private tokenService: TokenService,
+    private route: Router
+  ) {
     this.productos = [];
     this.seleccionados = [];
     this.textoBtnEliminar = '';
   }
 
   ngOnInit(): void {
-    this.productos = this.productoServicio.listar();
+    this.getProductos();
+  }
+
+  private getProductos() {
+    const code = Number(this.tokenService.getCodigoUsuairo());
+    this.productoServicio.obtenerProductos(code).subscribe({
+      next: data => {
+        if (data) {
+          this.productos = data.answer;
+        }
+      }
+    });
   }
 
   public seleccionar(producto: ProductoGetDTO, estado: boolean) {
@@ -45,7 +64,28 @@ export class GestionProductosComponent implements OnInit {
     }
   }
 
-  borrarProductos() {
+  goToCreate() {
+    this.route.navigate(['/crear']);
+  }
 
+  editProduct(producto: ProductoGetDTO) {
+    if (producto) {
+      this.route.navigate([`/editar/${producto.idProduct}`]);
+    }
+  }
+
+  deleteProduct(producto: ProductoGetDTO) {
+    if (producto) {
+      this.productoServicio.eliminarProducto(producto.idProduct).subscribe({
+        next: data => {
+          if (data) {
+            this.alert = new Alert('Producto eliminado', 'success');
+          }
+        },
+        error: error => {
+          this.alert = new Alert(error.error.answer, 'danger');
+        }
+      });
+    }
   }
 }

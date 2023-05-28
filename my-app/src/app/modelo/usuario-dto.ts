@@ -1,8 +1,9 @@
 export class UsuarioDTO {
-    nombre:string = "";
-    email:string = "";
-    direccion:string = "";
-    telefono:string = "";   
-    password:string = "";
-    confirmaPassword:string = "";
+    name: string = '';
+    email: string = '';
+    password: string = '';
+    address: string = '';
+    phoneNumber: string = '';
+    confirmaPassword?: string = '';
+    birthDate: Date = new Date();
 }

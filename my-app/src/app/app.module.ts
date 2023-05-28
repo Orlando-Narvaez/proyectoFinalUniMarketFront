@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,11 @@ import { BusquedaComponent } from './pagina/busqueda/busqueda.component';
 import { GestionProductosComponent } from './pagina/gestion-productos/gestion-productos.component';
 import { DetalleProductoComponent } from './pagina/detalle-producto/detalle-producto.component';
 import { CarritoComponent } from './pagina/carrito/carrito.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { UsuarioInterceptor } from './servicios/usuario.interceptor';
+import { AlertComponent } from './pagina/alert/alert.component';
+import { ProductosModeradorComponent } from './pagina/productos-moderador/productos-moderador.component';
+
 
 @NgModule({
   declarations: [
@@ -23,14 +28,18 @@ import { CarritoComponent } from './pagina/carrito/carrito.component';
     BusquedaComponent,
     GestionProductosComponent,
     DetalleProductoComponent,
-    CarritoComponent
+    CarritoComponent,
+    AlertComponent,
+    ProductosModeradorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: UsuarioInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

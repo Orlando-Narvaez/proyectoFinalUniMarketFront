@@ -1,12 +1,11 @@
 <div class="card p-5">
     <form #f="ngForm" (ngSubmit)="registrar()">
-
         <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label" >Nombre: </label>
+            <label class="col-sm-2 col-form-label form-label" >Nombre: </label>
             <div class="col-sm-10">
                 <input #nombre="ngModel" class="form-control" [ngClass]="nombre.invalid &&
                 (nombre.dirty || nombre.touched) ? 'is-invalid' : ''" type="text" name="nombre"
-                [(ngModel)]="usuario.nombre" required maxlength="50" />
+                [(ngModel)]="usuario.name" required maxlength="50" />
     
             </div>
         </div>
@@ -26,7 +25,7 @@
             <div class="col-sm-10">
                 <input #direccion="ngModel" class="form-control" [ngClass]="direccion.invalid &&
                 (direccion.dirty || direccion.touched) ? 'is-invalid' : ''" type="text" name="direccion"
-                [(ngModel)]="usuario.direccion" required />
+                [(ngModel)]="usuario.address" required />
 
             </div>
         </div>
@@ -36,7 +35,18 @@
             <div class="col-sm-10">
                 <input #telefono="ngModel" class="form-control" [ngClass]="telefono.invalid &&
                 (telefono.dirty || telefono.touched) ? 'is-invalid' : ''" type="text" name="telefono"
-                [(ngModel)]="usuario.telefono" required />
+                [(ngModel)]="usuario.phoneNumber" required />
+
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label" >Fecha nacimiento: </label>
+            <div class="col-sm-10">
+                <input #fecha="ngModel" class="form-control"
+                [ngClass]="fecha.invalid && (fecha.dirty || fecha.touched) ||
+                !sonIguales() ? 'is-invalid' : ''" type="date" name="fechaNacimiento"
+                [(ngModel)]="usuario.birthDate" required />
 
             </div>
         </div>
@@ -70,4 +80,5 @@
             Registrarse
         </button>
     </form>
+    <app-alert [alert]="alert"></app-alert>
 </div>

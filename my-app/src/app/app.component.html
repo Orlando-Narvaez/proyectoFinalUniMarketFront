@@ -8,11 +8,15 @@
         <span class="fs-4 ms-3 me-3">{{title}}</span>
       </a>
 
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a routerLink="" class="nav-link px-2 text-secondary">Inicio</a></li>
-        <li><a routerLink="" class="nav-link px-2 text-white">Mis productos</a></li>
-        <li><a routerLink="" class="nav-link px-2 text-white">Mis compras</a></li>
-        <li><a routerLink="" class="nav-link px-2 text-white">Carrito</a></li>
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" *ngIf="cliente()">
+        <li><a routerLink="/" class="nav-link px-2 text-secondary">Inicio</a></li>
+        <li><a routerLink="/gestionar-productos" class="nav-link px-2 text-white">Mis productos</a></li>
+        <li><a routerLink="/compras" class="nav-link px-2 text-white">Mis compras</a></li>
+        <li><a routerLink="/carrito" class="nav-link px-2 text-white">Carrito</a></li>
+      </ul>
+
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" *ngIf="moderador()">
+        <li><a routerLink="/productos-moderador" class="nav-link px-2 text-secondary">Gestión de productos</a></li>
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
